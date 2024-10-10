@@ -7,15 +7,15 @@ import torch
 import json
 import os
 from pathlib import Path
-import random
 import warnings
 import numpy as np
+import secrets
 
 warnings.filterwarnings("ignore")
 
 
 def set_seed(seed=5775709):
-    random.seed(seed)
+    secrets.SystemRandom().seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
