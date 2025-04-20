@@ -18,7 +18,6 @@ Supervised fine-tuning script for decoder language models.
 """
 
 import logging
-import random
 import sys
 
 import datasets
@@ -40,6 +39,7 @@ from alignment import (
     get_tokenizer,
 )
 from trl import SFTTrainer
+import secrets
 
 
 logger = logging.getLogger(__name__)
@@ -109,7 +109,7 @@ def main():
     eval_dataset = raw_datasets["test"]
 
     with training_args.main_process_first(desc="Log a few random samples from the processed training set"):
-        for index in random.sample(range(len(raw_datasets["train"])), 3):
+        for index in secrets.SystemRandom().sample(range(len(raw_datasets["train"])), 3):
             logger.info(f"Sample {index} of the processed training set:\n\n{raw_datasets['train'][index]['text']}")
 
     #######################

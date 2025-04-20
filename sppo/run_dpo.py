@@ -3,7 +3,6 @@
 # Adapted from https://github.com/huggingface/alignment-handbook
 
 import logging
-import random
 import sys
 
 import torch
@@ -26,6 +25,7 @@ from alignment import (
 )
 from peft import PeftConfig, PeftModel
 from trainer import DPOTrainer
+import secrets
 
 
 logger = logging.getLogger(__name__)
@@ -117,7 +117,7 @@ def main_inner(model_args, data_args, training_args):
 
     print(raw_datasets['train'].features)
     # Log a few random samples from the training set:
-    for index in random.sample(range(len(raw_datasets["train"])), 3):
+    for index in secrets.SystemRandom().sample(range(len(raw_datasets["train"])), 3):
         logger.info(f"Prompt sample {index} of the raw training set:\n\n{raw_datasets['train'][index]['prompt']}")
         logger.info(f"Chosen sample {index} of the raw training set:\n\n{raw_datasets['train'][index]['chosen']}")
         logger.info(f"Rejected sample {index} of the raw training set:\n\n{raw_datasets['train'][index]['rejected']}")
